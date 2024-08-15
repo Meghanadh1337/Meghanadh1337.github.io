@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sai Meghanadh's Portfolio">
+    <title>Sai Meghanadh's Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff6600;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffcc99 !important;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .card-body {
+            text-align: center;
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            color: #ff6600;
+        }
+        footer {
+            background-color: #ff6600;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+        }
+        .animated-text {
+            font-size: 1.5rem;
+            color: #ff6600;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 0.15em solid #ff6600;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #ff6600; }
+        }
+        .card-columns {
+            column-count: 1;
+        }
+        @media (min-width: 576px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+        @media (min-width: 768px) {
+            .card-columns {
+                column-count: 3;
+            }
+        }
+        @media (min-width: 992px) {
+            .card-columns {
+                column-count: 4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Sai Meghanadh's Portfolio</a>
+        </div>
+        <div class="text-center mt-4">
+            <div id="animated-text" class="animated-text">I am a Leetcode enthusiast</div>
+        </div>
+    </header>
+
+    <main class="container mt-5">
+        <div class="card-columns">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Projects</h5>
+                    <p class="card-text">Explore my projects and work here.</p>
+                    <a href="#" class="btn btn-outline-primary">View</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Certificates</h5>
+                    <p class="card-text">Check out my certifications and achievements.</p>
+                    <a href="#" class="btn btn-outline-primary">View</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resume</h5>
+                    <p class="card-text">Download my resume and learn more about me.</p>
+                    <a href="#" class="btn btn-outline-primary">View</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Competitive Programming</h5>
+                    <p class="card-text">Discover my competitive programming journey and achievements.</p>
+                    <a href="#" class="btn btn-outline-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sai Meghanadh. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const phrases = [
+            "a Leetcode enthusiast",
+            "a Development enthusiast",
+            "a Competitive programmer"
+        ];
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        let deletingSpeed = 50;
+        const pauseTime = 1000;
+
+        function typeEffect() {
+            const currentPhrase = phrases[currentPhraseIndex];
+            const element = document.getElementById('animated-text');
+            
+            if (isDeleting) {
+                element.textContent = "I am " + currentPhrase.substring(0, currentCharIndex);
+                currentCharIndex--;
+                
+                if (currentCharIndex < 0) {
+                    isDeleting = false;
+                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                    setTimeout(typeEffect, pauseTime);
+                    return;
+                }
+            } else {
+                element.textContent = "I am " + currentPhrase.substring(0, currentCharIndex);
+                currentCharIndex++;
+                
+                if (currentCharIndex > currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, pauseTime);
+                    return;
+                }
+            }
+            
+            setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
+        }
+
+        // Start the typing effect
+        typeEffect();
+    </script>
+</body>
+</html>
