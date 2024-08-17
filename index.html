@@ -7,6 +7,7 @@
     <title>Sai Meghanadh's Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         :root {
             --primary-color: #ff6600;
@@ -31,33 +32,28 @@
 
         header {
             background-color: var(--primary-color);
-            padding: 1rem;
+            padding: 1rem 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
         }
 
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
+            padding: 0 2rem;
         }
 
         nav ul {
             display: flex;
+            justify-content: center;
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
         nav ul li {
-            margin-left: 1rem;
+            margin: 0 1rem;
         }
 
         nav ul li a {
@@ -65,6 +61,7 @@
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
+            font-size: 1.1rem;
         }
 
         nav ul li a:hover {
@@ -116,9 +113,16 @@
         }
 
         .card-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
         }
 
         .card {
@@ -126,11 +130,13 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            margin: 1rem;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
-            max-width: 350px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .card:hover {
@@ -141,6 +147,14 @@
         .card i {
             font-size: 3rem;
             color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
             margin-bottom: 1rem;
         }
 
@@ -162,13 +176,15 @@
         .tech-stack {
             background-color: var(--secondary-color);
             color: white;
+            padding: 2rem;
+            text-align: center;
         }
 
         .badge-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             gap: 1rem;
+            justify-content: center;
         }
 
         .badge {
@@ -187,18 +203,63 @@
         }
 
         @media (min-width: 768px) {
-            .card-section {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
+            .card {
+                width: calc(50% - 1rem);
             }
+        }
+
+        @media (min-width: 992px) {
+            .card {
+                width: calc(25% - 1.5rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        #contact-form div {
+            margin-bottom: 1rem;
+        }
+
+        #contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        #contact-form input, #contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #contact-form button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact-form button:hover {
+            background-color: var(--accent-color);
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">SM</div>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -206,6 +267,7 @@
                 <li><a href="#certificates">Certificates</a></li>
                 <li><a href="#resume">Resume</a></li>
                 <li><a href="#competitive">Competitive</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -223,54 +285,78 @@
 
         <section id="projects" class="card-section">
             <h2>Projects</h2>
-            <div class="card">
-                <i class="fas fa-code"></i>
-                <h3>Projects</h3>
-                <p>Explore my projects and work here.</p>
-                <a href="#" class="btn">View Projects</a>
+            <div class="card-container">
+                <div class="card">
+                    <div>
+                        <i class="fas fa-code"></i>
+                        <h3>Projects</h3>
+                        <p>Explore my projects and work here.</p>
+                    </div>
+                    <a href="#" class="btn">View Projects</a>
+                </div>
             </div>
         </section>
 
         <section id="certificates" class="card-section">
             <h2>Certificates</h2>
-            <div class="card">
-                <i class="fas fa-certificate"></i>
-                <h3>Certificates</h3>
-                <p>Check out my certifications and achievements.</p>
-                <a href="#" class="btn">View Certificates</a>
+            <div class="card-container">
+                <div class="card">
+                    <div>
+                        <i class="fas fa-certificate"></i>
+                        <h3>Certificates</h3>
+                        <p>Check out my certifications and achievements.</p>
+                    </div>
+                    <a href="#" class="btn">View Certificates</a>
+                </div>
             </div>
         </section>
 
         <section id="resume" class="card-section">
             <h2>Resume</h2>
-            <div class="card">
-                <i class="fas fa-file-alt"></i>
-                <h3>Resume</h3>
-                <p>Download my resume and learn more about me.</p>
-                <a href="#" class="btn">View Resume</a>
+            <div class="card-container">
+                <div class="card">
+                    <div>
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Resume</h3>
+                        <p>Download my resume here.</p>
+                    </div>
+                    <a href="#" class="btn">Download Resume</a>
+                </div>
             </div>
         </section>
 
         <section id="competitive" class="card-section">
             <h2>Competitive Programming</h2>
-            <div class="card">
-                <i class="fas fa-trophy"></i>
-                <h3>Competitive Programming</h3>
-                <p>Discover my competitive programming journey and achievements.</p>
-                <a href="#" class="btn">View Achievements</a>
+            <div class="card-container">
+                <div class="card">
+                    <div>
+                        <i class="fas fa-trophy"></i>
+                        <h3>Competitive Programming</h3>
+                        <p>Explore my competitive programming achievements.</p>
+                    </div>
+                    <a href="#" class="btn">View Achievements</a>
+                </div>
             </div>
         </section>
 
-        <section id="tech-stack" class="tech-stack">
-            <h2>Tech Stack</h2>
-            <div class="badge-container">
-                <span class="badge">Java</span>
-                <span class="badge">Spring Boot</span>
-                <span class="badge">JavaScript</span>
-                <span class="badge">React</span>
-                <span class="badge">SQL</span>
-                <span class="badge">Git</span>
-            </div>
+        <section id="contact" class="card-section">
+            <h2>Contact Me</h2>
+            <form id="contact-form">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+                <div id="form-response"></div>
+            </form>
         </section>
     </main>
 
@@ -279,58 +365,47 @@
     </footer>
 
     <script>
-        const phrases = [
-            "Leetcode enthusiast",
-            "Development enthusiast",
-            "Competitive programmer"
-        ];
-        let currentPhraseIndex = 0;
-        let currentCharIndex = 0;
-        let isDeleting = false;
-        const typingSpeed = 90;
-        const deletingSpeed = 100;
-        const pauseTime = 1000;
+        // EmailJS initialization
+        emailjs.init('-HybIQN26TMtbM6G8');
 
-        function typeEffect() {
-            const currentPhrase = phrases[currentPhraseIndex];
-            const element = document.querySelector('.highlight');
-            
-            if (isDeleting) {
-                element.textContent = currentPhrase.substring(0, currentCharIndex);
-                currentCharIndex--;
-                
-                if (currentCharIndex < 0) {
-                    isDeleting = false;
-                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                    setTimeout(typeEffect, pauseTime);
-                    return;
-                }
-            } else {
-                element.textContent = currentPhrase.substring(0, currentCharIndex);
-                currentCharIndex++;
-                
-                if (currentCharIndex > currentPhrase.length) {
-                    isDeleting = true;
-                    setTimeout(typeEffect, pauseTime);
-                    return;
-                }
+        // Typing effect script
+        const texts = ["Leetcode enthusiast", "Developer"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
             }
-            
-            setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
-        }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
 
-        // Start the typing effect
-        typeEffect();
+            document.querySelector(".animated-text .highlight").textContent = letter;
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(() => type(), 2000); // Pause for 2 seconds before changing the text
+            } else {
+                setTimeout(type, 150); // Match original typing speed
+            }
+        })();
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+            const form = event.target;
+            const formData = new FormData(form);
+
+            emailjs.sendForm('service_4svyif7', 'template_uus4dtn', formData)
+                .then(function(response) {
+                    document.getElementById('form-response').innerHTML = '<p>Message sent successfully!</p>';
+                    form.reset(); // Clear the form
+                }, function(error) {
+                    document.getElementById('form-response').innerHTML = '<p>There was an error sending your message. Please try again later.</p>';
                 });
-            });
         });
     </script>
 </body>
