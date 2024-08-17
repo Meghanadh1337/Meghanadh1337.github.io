@@ -223,43 +223,6 @@
                 margin: 0.5rem 0;
             }
         }
-
-        .contact-form {
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 600px;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .contact-form button {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .contact-form button:hover {
-            background-color: var(--accent-color);
-        }
-
-        .form-response {
-            margin-top: 1rem;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -272,7 +235,6 @@
                 <li><a href="#certificates">Certificates</a></li>
                 <li><a href="#resume">Resume</a></li>
                 <li><a href="#competitive">Competitive</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -323,9 +285,9 @@
                     <div>
                         <i class="fas fa-file-alt"></i>
                         <h3>Resume</h3>
-                        <p>Download my latest resume.</p>
+                        <p>Download my resume and learn more about me.</p>
                     </div>
-                    <a href="#" class="btn">Download Resume</a>
+                    <a href="#" class="btn">View Resume</a>
                 </div>
             </div>
         </section>
@@ -337,22 +299,28 @@
                     <div>
                         <i class="fas fa-trophy"></i>
                         <h3>Competitive Programming</h3>
-                        <p>Explore my competitive programming profile and achievements.</p>
+                        <p>Discover my competitive programming journey.</p>
                     </div>
-                    <a href="#" class="btn">View Profile</a>
+                    <a href="#" class="btn">View Competitions</a>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="contact-form">
+        <section id="contact" class="card-section">
             <h2>Contact Me</h2>
             <form id="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
                 <button type="submit">Send</button>
-                <div id="form-response" class="form-response"></div>
             </form>
+            <div id="form-response"></div>
         </section>
     </main>
 
@@ -362,30 +330,36 @@
 
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS with your User ID
-        emailjs.init('-HybIQN26TMtbM6G8');
+        // Initialize EmailJS
+        emailjs.init('HybIQN26TMtbM6G8');
 
         // Handle form submission
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            emailjs.sendForm('service_4svyif7', 'template_uus4dtn', this)
+            const form = document.getElementById('contact-form');
+            if (!form) {
+                console.error('Form element not found!');
+                return;
+            }
+
+            emailjs.sendForm('service_4svyif7', 'template_uus4dtn', form)
                 .then(function(response) {
-                    // Success response
+                    console.log('SUCCESS', response);
                     document.getElementById('form-response').innerText = 'Message sent successfully!';
                 }, function(error) {
-                    // Error response
-                    document.getElementById('form-response').innerText = 'Error sending message.';
+                    console.error('FAILED', error);
+                    document.getElementById('form-response').innerText = `Error sending message: ${error.text}`;
                 });
         });
 
         // Animated text effect
-        const textElement = document.querySelector('.animated-text .highlight');
+        const animatedTextElement = document.querySelector('.animated-text .highlight');
         const texts = ['Leetcode enthusiast', 'developer'];
         let index = 0;
 
         function changeText() {
-            textElement.textContent = texts[index];
+            animatedTextElement.textContent = texts[index];
             index = (index + 1) % texts.length;
             setTimeout(changeText, 2000);
         }
@@ -394,3 +368,4 @@
     </script>
 </body>
 </html>
+
