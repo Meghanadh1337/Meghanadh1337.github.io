@@ -400,7 +400,7 @@
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
-              emailjs.sendForm('service_4svyif7', 'template_uus4dtn', form)
+              emailjs.sendForm('service_4svyif7', 'template_uus4dtn',contact-form)
                 .then((response) => {
                     document.getElementById('form-response').textContent = 'Message sent successfully!';
                     document.getElementById('contact-form').reset();
