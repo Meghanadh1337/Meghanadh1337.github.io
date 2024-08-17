@@ -223,6 +223,54 @@
                 margin: 0.5rem 0;
             }
         }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+        }
+
+        .contact-form .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form .btn-submit:hover {
+            background-color: var(--accent-color);
+        }
+
+        .form-response {
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -235,6 +283,7 @@
                 <li><a href="#certificates">Certificates</a></li>
                 <li><a href="#resume">Resume</a></li>
                 <li><a href="#competitive">Competitive</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -271,7 +320,7 @@
                     <div>
                         <i class="fas fa-certificate"></i>
                         <h3>Certificates</h3>
-                        <p>Check out my certifications and achievements.</p>
+                        <p>Check out my certifications and credentials.</p>
                     </div>
                     <a href="#" class="btn">View Certificates</a>
                 </div>
@@ -285,7 +334,7 @@
                     <div>
                         <i class="fas fa-file-alt"></i>
                         <h3>Resume</h3>
-                        <p>Download my resume and learn more about me.</p>
+                        <p>Download or view my resume here.</p>
                     </div>
                     <a href="#" class="btn">View Resume</a>
                 </div>
@@ -299,16 +348,16 @@
                     <div>
                         <i class="fas fa-trophy"></i>
                         <h3>Competitive Programming</h3>
-                        <p>Discover my competitive programming journey.</p>
+                        <p>See my competitive programming achievements and practice.</p>
                     </div>
-                    <a href="#" class="btn">View Details</a>
+                    <a href="#" class="btn">View Achievements</a>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="card-section">
             <h2>Contact Me</h2>
-            <form id="contact-form">
+            <form id="contact-form" class="contact-form">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="from_name" required>
 
@@ -316,24 +365,26 @@
                 <input type="email" id="email" name="from_email" required>
 
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
+                <textarea id="message" name="message" rows="4" required></textarea>
 
-                <button type="submit">Send</button>
+                <button type="submit" class="btn-submit">Send</button>
             </form>
-            <p id="form-response"></p>
+            <p id="form-response" class="form-response"></p>
         </section>
 
         <section id="tech-stack" class="tech-stack">
-            <h2>My Tech Stack</h2>
+            <h2>Technologies I Use</h2>
             <div class="badge-container">
-                <div class="badge">JavaScript</div>
-                <div class="badge">Python</div>
                 <div class="badge">Java</div>
+                <div class="badge">Python</div>
                 <div class="badge">Spring Boot</div>
                 <div class="badge">React</div>
                 <div class="badge">MongoDB</div>
                 <div class="badge">MySQL</div>
-                <div class="badge">AWS</div>
+                <div class="badge">JavaScript</div>
+                <div class="badge">CSS</div>
+                <div class="badge">HTML</div>
+                <div class="badge">Bootstrap</div>
             </div>
         </section>
     </main>
@@ -344,41 +395,19 @@
 
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS
-        emailjs.init('-HybIQN26TMtbM6G8');
+        emailjs.init("-HybIQN26TMtbM6G8");
 
-        // Handle form submission
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const form = document.getElementById('contact-form');
-            if (!form) {
-                console.error('Form element not found!');
-                return;
-            }
-
-            emailjs.sendForm('service_4svyif7', 'template_uus4dtn', form)
-                .then(function(response) {
-                    console.log('SUCCESS', response);
-                    document.getElementById('form-response').innerText = `Message sent successfully! We received a message from ${form.from_name.value} (${form.from_email.value}).`;
-                }, function(error) {
-                    console.error('FAILED', error);
-                    document.getElementById('form-response').innerText = `Error sending message: ${error.text}`;
+              emailjs.sendForm('service_4svyif7', 'template_uus4dtn', contact-form)
+                .then((response) => {
+                    document.getElementById('form-response').textContent = 'Message sent successfully!';
+                    document.getElementById('contact-form').reset();
+                }, (error) => {
+                    document.getElementById('form-response').textContent = 'Failed to send message.';
                 });
         });
-
-        // Animated text effect
-        const animatedTextElement = document.querySelector('.animated-text .highlight');
-        const texts = ['Leetcode enthusiast', 'developer'];
-        let index = 0;
-
-        function changeText() {
-            animatedTextElement.textContent = texts[index];
-            index = (index + 1) % texts.length;
-            setTimeout(changeText, 2000);
-        }
-
-        changeText();
     </script>
 </body>
 </html>
