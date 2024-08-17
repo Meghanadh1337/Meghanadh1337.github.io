@@ -7,7 +7,6 @@
     <title>Sai Meghanadh's Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         :root {
             --primary-color: #ff6600;
@@ -225,35 +224,41 @@
             }
         }
 
-        #contact-form div {
-            margin-bottom: 1rem;
+        .contact-form {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
         }
 
-        #contact-form label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        #contact-form input, #contact-form textarea {
+        .contact-form input,
+        .contact-form textarea {
             width: 100%;
-            padding: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
 
-        #contact-form button {
-            display: inline-block;
+        .contact-form button {
             background-color: var(--primary-color);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-size: 1rem;
         }
 
-        #contact-form button:hover {
+        .contact-form button:hover {
             background-color: var(--accent-color);
+        }
+
+        .form-response {
+            margin-top: 1rem;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -318,7 +323,7 @@
                     <div>
                         <i class="fas fa-file-alt"></i>
                         <h3>Resume</h3>
-                        <p>Download my resume here.</p>
+                        <p>Download my latest resume.</p>
                     </div>
                     <a href="#" class="btn">Download Resume</a>
                 </div>
@@ -332,30 +337,21 @@
                     <div>
                         <i class="fas fa-trophy"></i>
                         <h3>Competitive Programming</h3>
-                        <p>Explore my competitive programming achievements.</p>
+                        <p>Explore my competitive programming profile and achievements.</p>
                     </div>
-                    <a href="#" class="btn">View Achievements</a>
+                    <a href="#" class="btn">View Profile</a>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="card-section">
+        <section id="contact" class="contact-form">
             <h2>Contact Me</h2>
             <form id="contact-form">
-                <div>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div>
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-                <div id="form-response"></div>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+                <div id="form-response" class="form-response"></div>
             </form>
         </section>
     </main>
@@ -364,49 +360,37 @@
         <p>&copy; 2024 Sai Meghanadh. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // EmailJS initialization
+        // Initialize EmailJS with your User ID
         emailjs.init('-HybIQN26TMtbM6G8');
 
-        // Typing effect script
-        const texts = ["Leetcode enthusiast", "Developer"];
-        let count = 0;
-        let index = 0;
-        let currentText = "";
-        let letter = "";
-
-        (function type() {
-            if (count === texts.length) {
-                count = 0;
-            }
-            currentText = texts[count];
-            letter = currentText.slice(0, ++index);
-
-            document.querySelector(".animated-text .highlight").textContent = letter;
-            if (letter.length === currentText.length) {
-                count++;
-                index = 0;
-                setTimeout(() => type(), 2000); // Pause for 2 seconds before changing the text
-            } else {
-                setTimeout(type, 150); // Match original typing speed
-            }
-        })();
-
-        // Contact form submission
+        // Handle form submission
         document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
-            const form = event.target;
-            const formData = new FormData(form);
-
-            emailjs.sendForm('service_4svyif7', 'template_uus4dtn', formData)
+            emailjs.sendForm('service_4svyif7', 'template_uus4dtn', this)
                 .then(function(response) {
-                    document.getElementById('form-response').innerHTML = '<p>Message sent successfully!</p>';
-                    form.reset(); // Clear the form
+                    // Success response
+                    document.getElementById('form-response').innerText = 'Message sent successfully!';
                 }, function(error) {
-                    document.getElementById('form-response').innerHTML = '<p>There was an error sending your message. Please try again later.</p>';
+                    // Error response
+                    document.getElementById('form-response').innerText = 'Error sending message.';
                 });
         });
+
+        // Animated text effect
+        const textElement = document.querySelector('.animated-text .highlight');
+        const texts = ['Leetcode enthusiast', 'developer'];
+        let index = 0;
+
+        function changeText() {
+            textElement.textContent = texts[index];
+            index = (index + 1) % texts.length;
+            setTimeout(changeText, 2000);
+        }
+
+        changeText();
     </script>
 </body>
 </html>
