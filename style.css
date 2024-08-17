@@ -4,15 +4,8 @@
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 0.15em solid #ff6600; /* This creates the cursor effect */
-    animation: blink-caret 0.75s step-end infinite;
     position: relative;
     display: inline-block;
-}
-
-@keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color:black; }
 }
 
 .animated-text::after {
@@ -20,8 +13,13 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 0.15em;
+    width: 0.15em; /* Width of the cursor */
     height: 100%;
-    background-color: #ff6600;
+    background-color: black; /* Cursor color */
     animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { background-color: transparent; }
+    50% { background-color: black; } /* Color of the blinking cursor */
 }
