@@ -12,6 +12,7 @@
             --secondary-color: #FFFFFF;
             --text-color: #333333;
             --accent-color: #FFB300;
+            --bg-color: #f0f0f0;
         }
 
         * {
@@ -24,7 +25,11 @@
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background-color: var(--secondary-color);
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 25px 25px, rgba(255, 107, 53, 0.2) 2%, transparent 0%),
+                radial-gradient(circle at 75px 75px, rgba(255, 179, 0, 0.15) 2%, transparent 0%);
+            background-size: 100px 100px;
         }
 
         header {
@@ -82,16 +87,40 @@
             padding: 6rem 2rem;
             background-color: var(--primary-color);
             color: var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23FFB300" /></svg>');
+            background-size: 20px 20px;
+            opacity: 0.1;
+            animation: stars 60s linear infinite;
+        }
+
+        @keyframes stars {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .animated-text {
             font-size: 2rem;
             min-height: 2.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .highlight {
@@ -105,13 +134,13 @@
             padding: 2rem;
             margin-top: -3rem;
             position: relative;
+            z-index: 2;
         }
 
         .card-section {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 2rem;
-            justify-content: center;
         }
 
         .card {
@@ -121,8 +150,6 @@
             padding: 2rem;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-            max-width: 300px;
         }
 
         .card:hover {
@@ -151,83 +178,11 @@
             background-color: var(--accent-color);
         }
 
-        .tech-stack {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .badge-container {
+        .featured-projects {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .badge {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            text-align: center;
-            padding: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav ul li {
-                margin: 0.5rem 0;
-            }
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: var(--secondary-color);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .contact-form .btn-submit {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .contact-form .btn-submit:hover {
-            background-color: var(--accent-color);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            overflow-x: auto;
             gap: 2rem;
+            padding: 1rem 0;
         }
 
         .project-card {
@@ -236,6 +191,7 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             padding: 1.5rem;
             transition: transform 0.3s ease;
+            min-width: 300px;
         }
 
         .project-card:hover {
@@ -271,6 +227,57 @@
             position: absolute;
             left: 0;
         }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .contact-form .btn-submit {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form .btn-submit:hover {
+            background-color: var(--accent-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -298,9 +305,36 @@
             <p>As a passionate developer and problem solver, I bring creativity and efficiency to every project. With a strong foundation in algorithms and data structures, I excel at crafting elegant solutions to complex challenges. My experience in competitive programming has honed my ability to write optimized, scalable code. Whether it's building robust applications or tackling intricate coding problems, I'm dedicated to delivering high-quality results that drive innovation and success.</p>
         </section>
 
+        <section id="quick-links" class="card-section">
+            <div class="card">
+                <i class="fas fa-file-alt"></i>
+                <h3>Resume</h3>
+                <p>View my professional experience and qualifications.</p>
+                <a href="#" class="btn">View Resume</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-code"></i>
+                <h3>Projects</h3>
+                <p>Explore my portfolio of development projects.</p>
+                <a href="#" class="btn">View Projects</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-certificate"></i>
+                <h3>Certificates</h3>
+                <p>Check out my certifications and credentials.</p>
+                <a href="#" class="btn">View Certificates</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-trophy"></i>
+                <h3>Competitive Programming</h3>
+                <p>See my competitive programming achievements.</p>
+                <a href="#" class="btn">View Achievements</a>
+            </div>
+        </section>
+
         <section id="projects">
             <h2>Featured Projects</h2>
-            <div class="projects-grid">
+            <div class="featured-projects">
                 <div class="project-card">
                     <h3>DSApractice</h3>
                     <p>Web App for automated daily reminders of Interview practice questions delivered straight to your WhatsApp.</p>
@@ -356,22 +390,6 @@
             </form>
             <p id="form-response" class="form-response"></p>
         </section>
-
-        <section id="tech-stack" class="tech-stack">
-            <h2>Technologies I Use</h2>
-            <div class="badge-container">
-                <div class="badge">Java</div>
-                <div class="badge">Python</div>
-                <div class="badge">Spring Boot</div>
-                <div class="badge">React</div>
-                <div class="badge">MongoDB</div>
-                <div class="badge">MySQL</div>
-                <div class="badge">JavaScript</div>
-                <div class="badge">CSS</div>
-                <div class="badge">HTML</div>
-                <div class="badge">Bootstrap</div>
-            </div>
-        </section>
     </main>
 
     <footer>
@@ -410,6 +428,9 @@
 
             // Add smooth scrolling
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+
+            
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
 
