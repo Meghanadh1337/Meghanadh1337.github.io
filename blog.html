@@ -1,0 +1,27 @@
+---
+permalink: /blog/
+---
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sai Meghanadh's Dev Log</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .post-link { font-size: 1.2em; text-decoration: none; color: #0366d6; }
+        .date { color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>Engineering Notes & Dev Log</h1>
+    <p><a href="/">← Back to Portfolio</a></p>
+    
+    <ul>
+      {% for post in site.posts %}
+        <li>
+          <span class="date">{{ post.date | date: "%b %d, %Y" }}</span>
+          <a class="post-link" href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+</body>
+</html>
